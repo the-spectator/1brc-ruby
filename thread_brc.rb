@@ -42,14 +42,14 @@ producer.join
 consumers_count.times { work_queue << end_object }
 consumers.each(&:join)
 
-# arr = []
-# city_map.each do |name, stat|
-#   arr<< [name, "#{name}=#{stat.min}/#{stat.mean}/#{stat.max}"]
-# end
+arr = []
+city_map.each do |name, stat|
+  arr<< [name, "#{name}=#{stat.min}/#{stat.mean}/#{stat.max}"]
+end
 
 # puts arr
 
-# result_string = "{#{arr.sort_by { |x| x[0] }.map{|x| x[1]}.join(", ")}}"
+result_string = "{#{arr.sort_by { |x| x[0] }.map{|x| x[1]}.join(", ")}}"
 # result_string = "{"
 # city_map.sort.each do |name, stat|
 #   result_string.concat "#{name}="

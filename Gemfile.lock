@@ -1,14 +1,32 @@
 GEM
+  remote: https://gems.contribsys.com/
+  specs:
+    sidekiq-pro (5.5.8)
+      sidekiq (~> 6.0, >= 6.5.6)
+
+GEM
   remote: https://rubygems.org/
   specs:
     concurrent-ruby (1.2.2)
+    connection_pool (2.4.1)
+    parallel (1.24.0)
+    rack (2.2.8)
+    redis (4.8.1)
+    sidekiq (6.5.12)
+      connection_pool (>= 2.2.5, < 3)
+      rack (~> 2.0)
+      redis (>= 4.5.0, < 5)
 
 PLATFORMS
   aarch64-darwin
   arm64-darwin-21
+  arm64-darwin-22
 
 DEPENDENCIES
   concurrent-ruby
+  parallel
+  sidekiq
+  sidekiq-pro (~> 5.5.8)!
 
 BUNDLED WITH
    2.4.12
