@@ -1,0 +1,14 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    concurrent-ruby (1.2.2)
+
+PLATFORMS
+  aarch64-darwin
+  arm64-darwin-21
+
+DEPENDENCIES
+  concurrent-ruby
+
+BUNDLED WITH
+   2.4.12
