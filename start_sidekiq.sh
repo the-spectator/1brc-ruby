@@ -8,7 +8,7 @@ pids=()
 
 # Function to start sidekiq process and capture the PID
 start_sidekiq() {
-    bundle exec sidekiq -c 4 -r ./sidekiq_test/a_job.rb > /dev/null 2>&1 &
+    bundle exec sidekiq -c 4 -r ./sidekiq_queue/a_job.rb > /dev/null 2>&1 &
     pid=$!
     pids+=($pid)
     echo "Started sidekiq process with PID: $pid"
