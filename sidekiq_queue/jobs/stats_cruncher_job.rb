@@ -1,11 +1,15 @@
 require 'sidekiq'
 require 'sidekiq-pro'
+require_relative './aggregator_job'
+require_relative './producer_job'
+# require_relative './stats_cruncher_job'
+
 
 Sidekiq.configure_server do |config|
   config.redis = { url: "redis://localhost:6379" }
 end
 
-class A
+class StatsCruncherJob
   include Sidekiq::Job
 
   def perform(lines)
