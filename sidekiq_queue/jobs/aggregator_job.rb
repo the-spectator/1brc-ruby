@@ -1,12 +1,12 @@
 class AggregatorJob
   include Sidekiq::Job
 
-  def perform(total_stats_jobs)
+  def perform(total_stats_jobs, aggregator_key_set)
     agrregate = {}
     processed_count = 0
 
     Sidekiq.redis do |conn|
-      while (_key, redis_city_hash = conn.brpop("1brc", timeout: 10))
+      while (_key, redis_city_hash = conn.brpop(*aggregator_key_set, timeout: 10))
         processed_count += 1
         debug_print { "Processed #{processed_count}" }
 

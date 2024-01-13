@@ -3,7 +3,8 @@ require_relative './stats_cruncher_job'
 class ProducerJob
   include Sidekiq::Job
 
-  def perform(batch_size, slice_size)
+  def perform(batch_size, slice_size, aggregator_key_set)
+    key_set = aggregator_key_set.cycle
     file = File.open('measurements.txt')
     job_count = 0
     agrregate = []
@@ -11,7 +12,7 @@ class ProducerJob
       job_count+=1
       agrregate << lines
       if job_count % batch_size == 0
-        StatsCruncherJob.perform_bulk(agrregate.zip, batch_size: 500)
+        StatsCruncherJob.perform_bulk(agrregate.product([key_set.next]), batch_size: 500)
         agrregate = []
         debug_print { "pushed bulk for #{job_count} angre #{agrregate}" }
       end

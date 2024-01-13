@@ -12,7 +12,7 @@ end
 class StatsCruncherJob
   include Sidekiq::Job
 
-  def perform(lines)
+  def perform(lines, aggregator_key)
     city_hash = {}
     lines.each do |tupple|
       city, measurement = tupple.split(";")
@@ -27,7 +27,7 @@ class StatsCruncherJob
     end
 
     Sidekiq.redis do |conn|
-      conn.lpush("1brc", city_hash.to_json)
+      conn.lpush(aggregator_key, city_hash.to_json)
     end
   end
 end
