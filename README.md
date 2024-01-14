@@ -25,6 +25,7 @@ memory
 | Implementation                  | 1 million | 10 million | 50 million | 100 million | 1 billion |
 | ------------------------------- | --------- | ---------- | ---------- | ----------- | --------- |
 | Java Baseline                   |           |            | 15.78s     |             | 319.81s   |
-| ruby single thread 1000 slice   | 1.22599   | 12.482648  | 64.479745  |             |           |
-| ruby single thread 10_000 slice |           |            | 77.639337  |             |           |
+| ruby single thread 1000 slice   | 1.22599s  | 12.482648s | 64.479745s |             |           |
+| ruby single thread 10_000 slice |           |            | 77.639337s |             |           |
+| ruby async 1000 slice           | 1.315956s | 13.364678s | 65.457532s |             |           |
 |                                 |           |            |            |             |           |
