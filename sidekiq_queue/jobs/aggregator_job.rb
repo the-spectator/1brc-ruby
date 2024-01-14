@@ -5,8 +5,11 @@ class AggregatorJob
     agrregate = {}
     processed_count = 0
 
+    debug_print { "Got number of jobs #{total_stats_jobs} with key_set #{aggregator_key_set}" }
     Sidekiq.redis do |conn|
-      while (_key, redis_city_hash = conn.brpop(*aggregator_key_set, timeout: 10))
+      while true
+        (_key, redis_city_hash = conn.brpop(*aggregator_key_set, timeout: 1))
+        next if redis_city_hash.nil?
         processed_count += 1
         debug_print { "Processed #{processed_count}" }
 
@@ -29,7 +32,7 @@ class AggregatorJob
           agrregate[key] = city_from_aggregate
         end
 
-        break if processed_count == total_stats_jobs
+        break if processed_count >= total_stats_jobs
       end
     end
     debug_print { "Total processed jobs #{processed_count} & stats jobs #{total_stats_jobs}" }
@@ -40,7 +43,7 @@ class AggregatorJob
   end
 
   def debug_print(&block)
-    return if ENV['debug'] != true
+    return if ENV['debug'] != 'true'
     puts(block.call)
   end
 end

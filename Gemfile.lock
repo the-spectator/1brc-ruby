@@ -7,8 +7,19 @@ GEM
 GEM
   remote: https://rubygems.org/
   specs:
+    async (2.8.0)
+      console (~> 1.10)
+      fiber-annotation
+      io-event (~> 1.1)
+      timers (~> 4.1)
     concurrent-ruby (1.2.2)
     connection_pool (2.4.1)
+    console (1.23.3)
+      fiber-annotation
+      fiber-local
+    fiber-annotation (0.2.0)
+    fiber-local (1.0.0)
+    io-event (1.4.1)
     parallel (1.24.0)
     rack (2.2.8)
     redis (4.8.1)
@@ -16,6 +27,7 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    timers (4.3.5)
 
 PLATFORMS
   aarch64-darwin
@@ -23,6 +35,7 @@ PLATFORMS
   arm64-darwin-22
 
 DEPENDENCIES
+  async
   concurrent-ruby
   parallel
   sidekiq

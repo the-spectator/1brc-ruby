@@ -6,6 +6,7 @@ require_relative './jobs/stats_cruncher_job'
 
 Sidekiq.configure_server do |config|
   config.redis = { url: "redis://localhost:6379" }
+  # config.logger.level = Logger::WARN
 end
 
 Sidekiq.redis { |c| c.flushdb }
@@ -15,11 +16,12 @@ puts("Program started at #{t0}")
 
 total_measurement_rows = ENV.fetch("rows").to_i
 slice_size = ENV.fetch("slice_size", 20_000).to_i
+total_aggregator_key_set_size = ENV.fetch("key_set_size", 20).to_i
+sidekiq_push_batch_size = ENV.fetch("push_batch", 500).to_i
 
 total_stats_jobs = total_measurement_rows / slice_size
-total_aggregator_key_set_size = ENV.fetch("key_set_size", 20).to_i
 aggregator_key_set = Array.new(total_aggregator_key_set_size) { |i| "1brc-aggregator-#{i}" }
-sidekiq_push_batch_size = total_stats_jobs / total_aggregator_key_set_size
+puts "pushed bulk for #{total_stats_jobs} with slice_size(#{slice_size}) and key #{aggregator_key_set}"
 
 # Enqueue aggregator job
 AggregatorJob.perform_async(total_stats_jobs, aggregator_key_set)
