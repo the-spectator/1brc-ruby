@@ -6,9 +6,12 @@ module BrcRuby
       Sidekiq.redis { |c| c.flushdb }
     end
 
-    def pretty_print(&work)
-      t0 = Time.now
+    def pretty_print(version_name, &work)
       puts("😀"*100)
+      puts("Running #{version_name} version of #1BRC ruby")
+      puts("Process #{BrcRuby::Utils::Config.rows} rows from file #{BrcRuby::Utils::Config.filename} with size size of #{BrcRuby::Utils::Config.slice_size}")
+      puts
+      t0 = Time.now
       puts("Program started at #{t0}")
 
       result_string = work.call

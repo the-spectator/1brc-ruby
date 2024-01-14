@@ -8,6 +8,14 @@ namespace :brc do
   end
 
   task :single_thread do
-    BrcRuby::SingleThread.run
+    BrcRuby::Utils.pretty_print("single thread") do
+      BrcRuby::SingleThread.run
+    end
+  end
+
+  task :async do
+    BrcRuby::Utils.pretty_print("async") do
+      BrcRuby::AsyncRunner.run
+    end
   end
 end
